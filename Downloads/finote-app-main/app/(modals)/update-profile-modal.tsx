@@ -52,7 +52,7 @@ const EditProfileModal = () => {
   }
 
   const handleSubmit = async () => {
-    let { name, image } = userData
+    let { name } = userData
     if (!name.trim()) {
       Alert.alert("Warning", "Please enter your name")
       return

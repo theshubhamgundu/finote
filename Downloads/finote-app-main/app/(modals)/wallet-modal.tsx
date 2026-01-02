@@ -16,7 +16,7 @@ import React, { useEffect, useState } from "react"
 import { Alert, ScrollView, StyleSheet, View } from "react-native"
 
 const WalletModal = () => {
-  const { user, updateUserData } = useAuth()
+  const { user } = useAuth()
   const [wallet, setWalletData] = useState<WalletType>({
     name: "",
     image: null,
@@ -36,7 +36,7 @@ const WalletModal = () => {
         image: oldWallet?.image || null,
       })
     }
-  }, [])
+  }, [oldWallet?.id, oldWallet?.name, oldWallet?.image])
 
   //onsublmit function
   const onSubmit = async () => {

@@ -1,5 +1,5 @@
 import SegmentedControl from "@react-native-segmented-control/segmented-control";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Alert, Platform, ScrollView, StyleSheet, View } from "react-native";
 import { BarChart } from "react-native-gifted-charts";
 import HeaderComponent from "@/components/header";
@@ -24,21 +24,9 @@ export default function Statistic() {
 	const [chartLoading, setChartLoading] = useState(false);
 	const [transactions, setTransactions] = useState([]);
 
-	useEffect(() => {
-		if (activeIndex === 0) {
-			getWeeklyStats();
-		}
-		if (activeIndex === 1) {
-			getMonthlyStats();
-		}
-		if (activeIndex === 2) {
-			getYearlyStats();
-		}
-	}, [activeIndex]);
-
 	//functions to gets stats
 
-	const getWeeklyStats = async () => {
+	const getWeeklyStats = useCallback(async () => {
 		//get weekly stats
 		setChartLoading(true);
 		const result = await fetchWeeklyStats(user?.uid as string);
@@ -50,9 +38,9 @@ export default function Statistic() {
 			console.log(result.msg);
 			Alert.alert("Error", result.msg);
 		}
-	};
+	}, [user?.uid]);
 
-	const getMonthlyStats = async () => {
+	const getMonthlyStats = useCallback(async () => {
 		//get monthly stats
 		setChartLoading(true);
 		const result = await fetchMonthlyStats(user?.uid as string);
@@ -64,9 +52,9 @@ export default function Statistic() {
 			console.log(result.msg);
 			Alert.alert("Error", result.msg);
 		}
-	};
+	}, [user?.uid]);
 
-	const getYearlyStats = async () => {
+	const getYearlyStats = useCallback(async () => {
 		//get yearly stats
 		setChartLoading(true);
 		const result = await fetchYearlyStats(user?.uid as string);
@@ -78,7 +66,19 @@ export default function Statistic() {
 			console.log(result.msg);
 			Alert.alert("Error", result.msg);
 		}
-	};
+	}, [user?.uid]);
+
+	useEffect(() => {
+		if (activeIndex === 0) {
+			getWeeklyStats();
+		}
+		if (activeIndex === 1) {
+			getMonthlyStats();
+		}
+		if (activeIndex === 2) {
+			getYearlyStats();
+		}
+	}, [activeIndex, getWeeklyStats, getMonthlyStats, getYearlyStats]);
 
 	return (
 		<ScreenWrapper>

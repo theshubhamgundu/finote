@@ -49,8 +49,6 @@ const TransactionModal = () => {
 
   const {
     data: wallets,
-    loading: walletLoading,
-    error: walletError,
   } = useFirestoreData<WalletType>("wallets", [
     where("uid", "==", user?.uid),
     orderBy("created", "desc"),
@@ -77,7 +75,7 @@ const TransactionModal = () => {
         image: oldTransaction?.image,
       })
     }
-  }, [])
+  }, [oldTransaction?.id, oldTransaction?.type, oldTransaction?.amount, oldTransaction.description, oldTransaction.category, oldTransaction.date, oldTransaction.walletId, oldTransaction?.image])
 
   //onsublmit function
   const onSubmit = async () => {

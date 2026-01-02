@@ -16,13 +16,11 @@ import { orderBy, where } from "firebase/firestore"
 const SearchModal = () => {
   const { user } = useAuth()
 
-  const [loading, setLoading] = useState(false)
   const [search, setSearch] = useState("")
 
   const constraints = [where("uid", "==", user?.uid), orderBy("date", "desc")]
   const {
     data: allTransactions,
-    error,
     loading: recentTransactionsLoading,
   } = useFirestoreData<TransactionType>("transactions", constraints)
 
@@ -68,7 +66,7 @@ const SearchModal = () => {
         <ScrollView contentContainerStyle={styles.form}>
           {/* list of all transactions */}
           <TransactionList
-            loading={loading}
+            loading={recentTransactionsLoading}
             data={filteredTransactions}
             emptyListMessage="No transaction found for this search!"
           />

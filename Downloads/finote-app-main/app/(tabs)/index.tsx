@@ -26,7 +26,6 @@ const Home = () => {
 
   const {
     data: recentTransactions,
-    error,
     loading: recentTransactionsLoading,
   } = useFirestoreData<TransactionType>(
     "transactions",

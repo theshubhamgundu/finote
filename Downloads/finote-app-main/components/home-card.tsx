@@ -25,7 +25,6 @@ const HomeCard = () => {
 
   const {
     data: wallets,
-    error,
     loading: walletLoading,
   } = useFirestoreData<WalletType>("wallets", walletConstraints, !!user?.uid)
 

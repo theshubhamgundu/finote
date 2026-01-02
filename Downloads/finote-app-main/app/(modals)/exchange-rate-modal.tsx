@@ -33,7 +33,7 @@ const ExchangeRateModal = () => {
         setLoading(true)
         const response = await fetchCurrencies(baseCurrency)
         setCurrencies(response)
-      } catch (error) {
+      } catch {
         // setError(error as string)
       } finally {
         setLoading(false)

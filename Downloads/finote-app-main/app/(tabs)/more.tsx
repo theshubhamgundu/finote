@@ -85,12 +85,14 @@ const More = () => {
   const handlePress = (item: OptionType) => {
     if (!item.routeName) return
 
-    item?.routeName === "commingsoon"
-      ? Alert.alert(
-          "Notification",
-          "This feature is under development. Come back later!",
-        )
-      : router.push(item?.routeName as any)
+    if (item?.routeName === "commingsoon") {
+      Alert.alert(
+        "Notification",
+        "This feature is under development. Come back later!",
+      )
+    } else {
+      router.push(item?.routeName as any)
+    }
   }
 
   return (
